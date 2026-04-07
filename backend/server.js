@@ -1,36 +1,61 @@
-const productRoutes = require("./routes/Products.js");
-app.use("/api/products", productRoutes);
-app.use("/uploads", express.static("uploads"));
 const express = require("express");
 const cors = require("cors");
-const orderRoutes = require("./routes/orders");
+const http = require("http");
+const { Server } = require("socket.io");
 
-app.use("/api/orders", orderRoutes);
-
-// connect database
+// DB connection
 require("./config/db");
 
-// import routes
+// Routes
 const authRoutes = require("./routes/auth");
+const productRoutes = require("./routes/products");
+const orderRoutes = require("./routes/orders");
 
 const app = express();
 
-// middleware
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// routes
-app.use("/api/auth", authRoutes);
+// Serve uploaded images
+app.use("/uploads", express.static("uploads"));
 
-// test route
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/orders", orderRoutes);
+
+// Test route
 app.get("/", (req, res) => {
   res.send("Waste2Decor Backend Running 🚀");
 });
 
-// start server
+// Create HTTP server
+const server = http.createServer(app);
 
+// Setup Socket.io
+const io = new Server(server, {
+  cors: {
+    origin: "*"
+  }
+});
+
+// Socket connection
+io.on("connection", (socket) => {
+  console.log("User connected:", socket.id);
+
+  socket.on("sendMessage", (data) => {
+    io.emit("receiveMessage", data);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected:", socket.id);
+  });
+});
+
+// Start server
 const PORT = 5001;
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
