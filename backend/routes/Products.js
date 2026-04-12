@@ -84,8 +84,6 @@ router.get("/category/:type", async (req, res) => {
 });
 
 
-module.exports = router;
-
 // ================= GET SINGLE PRODUCT =================
 router.get("/:id", async (req, res) => {
   try {
@@ -100,3 +98,5 @@ router.get("/:id", async (req, res) => {
     });
   }
 });
+
+module.exports = router;

@@ -8,7 +8,7 @@ require("./config/db");
 
 // Routes
 const authRoutes = require("./routes/auth");
-const productRoutes = require("./routes/products");
+const productRoutes = require("./routes/Products");
 const orderRoutes = require("./routes/orders");
 
 const app = express();
