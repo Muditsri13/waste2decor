@@ -2,13 +2,14 @@ const express = require("express");
 const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
+require("dotenv").config();
 
 // DB connection
 require("./config/db");
 
 // Routes
 const authRoutes = require("./routes/auth");
-const productRoutes = require("./routes/Products");
+const productRoutes = require("./routes/products");
 const orderRoutes = require("./routes/orders");
 
 const app = express();
@@ -44,15 +45,15 @@ const io = new Server(server, {
 
 // Socket connection
 io.on("connection", (socket) => {
-  console.log("User connected:", socket.id);
 
-  socket.on("sendMessage", (data) => {
-    io.emit("receiveMessage", data);
+  socket.on("joinRoom", (room) => {
+    socket.join(room);
   });
 
-  socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
+  socket.on("sendMessage", ({ room, message }) => {
+    io.to(room).emit("receiveMessage", message);
   });
+
 });
 
 // Start server
