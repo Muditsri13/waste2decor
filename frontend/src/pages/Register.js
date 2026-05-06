@@ -11,10 +11,10 @@ function Register() {
 
   const onChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      register(form);
+      await register(form);
       navigate("/");
     } catch (error) {
       setErr(error.message || "Register failed");
