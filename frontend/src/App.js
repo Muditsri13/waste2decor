@@ -25,6 +25,7 @@ import Fabric from "./pages/Fabric";
 import BulkWaste from "./pages/BulkWaste";
 import SellBulk from "./pages/SellBulk";
 import Inbox from "./pages/Inbox";
+import Terms from "./pages/Terms";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/bulk" element={<BulkWaste />} />
+          <Route path="/terms" element={<Terms />} />
           
 
           <Route
