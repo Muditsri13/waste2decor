@@ -53,6 +53,9 @@ function Navbar() {
             <li className="nav-item">
               <NavLink className="nav-link" to="/awareness">Awareness Hub</NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link fw-bold" to="/aichat" style={{ color: "#10b981" }}>🤖 EcoBot AI</NavLink>
+            </li>
             {user && (
               <>
                 <li className="nav-item dropdown">
