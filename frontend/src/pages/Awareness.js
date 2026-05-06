@@ -7,8 +7,8 @@ export default function Awareness() {
   const { user } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [form, setForm] = useState({ text: "" });
-  const [imgFile, setImgFile] = useState(null);
-  const [imgPreview, setImgPreview] = useState(null);
+  const [mediaFile, setMediaFile] = useState(null);
+  const [mediaPreview, setMediaPreview] = useState(null);
   const [loading, setLoading] = useState(true);
   const [commentInputs, setCommentInputs] = useState({});
 
@@ -30,9 +30,9 @@ export default function Awareness() {
   const onFile = e => {
     const f = e.target.files[0];
     if (!f) return;
-    setImgFile(f);
+    setMediaFile(f);
     const reader = new FileReader();
-    reader.onload = () => setImgPreview(reader.result);
+    reader.onload = () => setMediaPreview(reader.result);
     reader.readAsDataURL(f);
   };
 
@@ -45,8 +45,8 @@ export default function Awareness() {
     formData.append("userId", user._id || user.id || localStorage.getItem("userId"));
     formData.append("author", user.name);
     formData.append("text", form.text);
-    if (imgFile) {
-      formData.append("image", imgFile);
+    if (mediaFile) {
+      formData.append("image", mediaFile); // Kept field name "image" to match backend expectation
     }
 
     try {
@@ -54,8 +54,8 @@ export default function Awareness() {
         headers: { "Content-Type": "multipart/form-data" }
       });
       setForm({ text: "" });
-      setImgFile(null);
-      setImgPreview(null);
+      setMediaFile(null);
+      setMediaPreview(null);
       toast.success("Posted successfully! 🌱");
       fetchPosts();
     } catch (error) {
@@ -114,20 +114,24 @@ export default function Awareness() {
           <div className="d-flex justify-content-between align-items-center">
             <div>
               <label htmlFor="postImage" className="btn btn-outline-secondary rounded-pill me-2">
-                📷 Add Image
+                📷 / 🎥 Add Media
               </label>
-              <input type="file" id="postImage" accept="image/*" className="d-none" onChange={onFile} />
+              <input type="file" id="postImage" accept="image/*,video/*" className="d-none" onChange={onFile} />
             </div>
             <button className="btn btn-success rounded-pill px-4 fw-bold shadow-sm">Post to Hub</button>
           </div>
 
-          {imgPreview && (
+          {mediaPreview && (
             <div className="mt-3 position-relative d-inline-block">
-              <img src={imgPreview} alt="preview" className="img-fluid rounded" style={{maxHeight: "150px", objectFit: "cover"}} />
+              {mediaFile?.type?.startsWith('video/') ? (
+                <video src={mediaPreview} className="rounded" controls style={{maxHeight: "200px", maxWidth: "100%", objectFit: "cover"}} />
+              ) : (
+                <img src={mediaPreview} alt="preview" className="img-fluid rounded" style={{maxHeight: "150px", objectFit: "cover"}} />
+              )}
               <button 
                 type="button" 
                 className="btn btn-sm btn-danger position-absolute top-0 end-0 m-1 rounded-circle"
-                onClick={() => { setImgPreview(null); setImgFile(null); }}
+                onClick={() => { setMediaPreview(null); setMediaFile(null); }}
               >✕</button>
             </div>
           )}
@@ -163,12 +167,21 @@ export default function Awareness() {
                   {/* POST CONTENT */}
                   <p className="fs-5">{p.text}</p>
                   {p.image && (
-                    <img 
-                      src={p.image?.startsWith("http") ? p.image : `http://localhost:5001/uploads/${p.image}`} 
-                      alt="post" 
-                      className="img-fluid rounded-4 mt-2 w-100" 
-                      style={{ maxHeight: "500px", objectFit: "cover" }} 
-                    />
+                    p.image.includes('/video/upload/') || p.image.match(/\.(mp4|webm|ogg|mov)$/i) ? (
+                      <video 
+                        src={p.image?.startsWith("http") ? p.image : `http://localhost:5001/uploads/${p.image}`} 
+                        controls 
+                        className="rounded-4 mt-2 w-100" 
+                        style={{ maxHeight: "500px", objectFit: "cover" }} 
+                      />
+                    ) : (
+                      <img 
+                        src={p.image?.startsWith("http") ? p.image : `http://localhost:5001/uploads/${p.image}`} 
+                        alt="post" 
+                        className="img-fluid rounded-4 mt-2 w-100" 
+                        style={{ maxHeight: "500px", objectFit: "cover" }} 
+                      />
+                    )
                   )}
 
                   {/* LIKE BUTTON */}

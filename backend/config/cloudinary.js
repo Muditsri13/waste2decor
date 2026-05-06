@@ -15,7 +15,8 @@ const createCloudinaryStorage = (folderName) => {
     cloudinary: cloudinary,
     params: {
       folder: `waste2decor/${folderName}`,
-      allowed_formats: ["jpg", "jpeg", "png", "webp", "avif"],
+      allowed_formats: ["jpg", "jpeg", "png", "webp", "avif", "mp4", "webm", "ogg", "mov"],
+      resource_type: "auto",
       // Optional: transformation: [{ width: 1000, height: 1000, crop: "limit" }]
     }
   });
