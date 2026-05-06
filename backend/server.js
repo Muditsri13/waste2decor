@@ -65,6 +65,17 @@ app.get("/", (req, res) => {
   res.send("Waste2Decor Backend Running 🚀");
 });
 
+app.get("/api/debug", (req, res) => {
+  const mongoose = require("mongoose");
+  res.json({
+    readyState: mongoose.connection.readyState,
+    mongoUriLength: process.env.MONGO_URI ? process.env.MONGO_URI.length : 0,
+    mongoUriStarts: process.env.MONGO_URI ? process.env.MONGO_URI.substring(0, 15) : "none",
+    mongoUriEndsWithQuote: process.env.MONGO_URI ? process.env.MONGO_URI.endsWith('"') : false
+  });
+});
+
+
 // Create HTTP server
 const server = http.createServer(app);
 
