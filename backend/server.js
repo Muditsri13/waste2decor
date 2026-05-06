@@ -7,8 +7,6 @@ require("dotenv").config();
 // Security Packages
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-const mongoSanitize = require("express-mongo-sanitize");
-const xss = require("xss-clean");
 
 // DB connection
 require("./config/db");
@@ -33,12 +31,6 @@ app.use(express.json());
 app.use(helmet({
   crossOriginResourcePolicy: false,
 }));
-
-// 2. Data Sanitization against NoSQL Query Injection
-app.use(mongoSanitize());
-
-// 3. Data Sanitization against XSS (Cross-Site Scripting)
-app.use(xss());
 
 // 4. Rate Limiting (Prevent DDoS & Brute Force)
 const limiter = rateLimit({
