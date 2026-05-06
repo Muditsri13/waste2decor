@@ -63,7 +63,10 @@ app.get("/api/debug", (req, res) => {
     readyState: mongoose.connection.readyState,
     mongoUriLength: process.env.MONGO_URI ? process.env.MONGO_URI.length : 0,
     mongoUriStarts: process.env.MONGO_URI ? process.env.MONGO_URI.substring(0, 15) : "none",
-    mongoUriEndsWithQuote: process.env.MONGO_URI ? process.env.MONGO_URI.endsWith('"') : false
+    mongoUriEndsWithQuote: process.env.MONGO_URI ? process.env.MONGO_URI.endsWith('"') : false,
+    cloudinaryNameExists: !!process.env.CLOUDINARY_CLOUD_NAME,
+    cloudinaryKeyExists: !!process.env.CLOUDINARY_API_KEY,
+    cloudinarySecretExists: !!process.env.CLOUDINARY_API_SECRET
   });
 });
 
