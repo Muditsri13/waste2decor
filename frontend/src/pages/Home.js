@@ -73,23 +73,23 @@ function Home() {
 
       {/* AI TRIVIA & QUOTE SECTION */}
       {aiContent && (
-        <div className="mt-5 mb-5">
+        <div className="mt-5 mb-5 trivia-card">
           <div className="card border-0 shadow-lg" style={{ background: "linear-gradient(135deg, #10b981 0%, #059669 100%)", borderRadius: "20px" }}>
             <div className="card-body p-4 p-md-5 text-white text-center position-relative overflow-hidden">
-              <div className="position-absolute top-0 start-0 w-100 h-100 bg-white opacity-10" style={{ transform: "rotate(-5deg) scale(1.5)", zIndex: 0 }}></div>
+              <div className="position-absolute top-0 start-0 w-100 h-100" style={{ background: "rgba(255,255,255,0.05)", transform: "rotate(-5deg) scale(1.5)", zIndex: 0 }}></div>
               <div className="position-relative" style={{ zIndex: 1 }}>
-                <h3 className="fw-bold mb-4">🌍 EcoBot's Daily Wisdom</h3>
+                <h3 className="fw-bold mb-4" style={{ color: "#fff" }}>🌍 EcoBot's Daily Wisdom</h3>
                 <div className="row g-4 justify-content-center">
                   <div className="col-md-5">
-                    <div className="bg-white bg-opacity-25 p-4 rounded-4 h-100">
-                      <h5 className="fw-bold mb-3">💡 Did You Know?</h5>
-                      <p className="fs-5 mb-0">{aiContent.trivia}</p>
+                    <div className="p-4 rounded-4 h-100" style={{ background: "rgba(255,255,255,0.2)" }}>
+                      <h5 className="fw-bold mb-3" style={{ color: "#fff" }}>💡 Did You Know?</h5>
+                      <p className="fs-5 mb-0" style={{ color: "#fff" }}>{aiContent.trivia}</p>
                     </div>
                   </div>
                   <div className="col-md-5">
-                    <div className="bg-white bg-opacity-25 p-4 rounded-4 h-100 d-flex flex-column justify-content-center">
-                      <h5 className="fw-bold mb-3">✨ Daily Quote</h5>
-                      <p className="fs-5 mb-0 fst-italic">"{aiContent.quote}"</p>
+                    <div className="p-4 rounded-4 h-100 d-flex flex-column justify-content-center" style={{ background: "rgba(255,255,255,0.2)" }}>
+                      <h5 className="fw-bold mb-3" style={{ color: "#fff" }}>✨ Daily Quote</h5>
+                      <p className="fs-5 mb-0 fst-italic" style={{ color: "#fff" }}>"{aiContent.quote}"</p>
                     </div>
                   </div>
                 </div>

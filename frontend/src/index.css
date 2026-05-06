@@ -40,8 +40,19 @@ body {
 h1, h2, h3, h4, h5, h6, .navbar-brand {
   font-family: "Outfit", sans-serif;
   font-weight: 700;
-  color: var(--dark-green);
   letter-spacing: -0.5px;
+}
+
+/* Default heading color only when NOT inside a colored/dark bg */
+body h1, body h2, body h3, body h4, body h5, body h6 {
+  color: var(--dark-green);
+}
+
+/* Allow text-white to override heading color in dark/colored sections */
+.text-white h1, .text-white h2, .text-white h3,
+.text-white h4, .text-white h5, .text-white h6,
+.text-white .fw-bold {
+  color: #ffffff !important;
 }
 
 /* Utility Classes */
@@ -177,7 +188,104 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
 
 /* Responsive tweaks */
 @media (max-width: 768px) {
+  /* Hero Section */
   .hero-gradient {
     padding: 2rem 1rem;
+    text-align: center;
+    border-radius: 20px;
+  }
+
+  .hero-gradient h1 {
+    font-size: 2.2rem !important;
+  }
+
+  .hero-gradient .d-flex.gap-3 {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem !important;
+  }
+
+  .hero-gradient .btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  /* Navbar */
+  .navbar .d-flex.gap-3 {
+    gap: 0.5rem !important;
+    flex-direction: column;
+    padding: 0.5rem 0;
+    width: 100%;
+  }
+
+  .navbar .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Cards grid */
+  .card-img-top {
+    height: 180px;
+  }
+
+  /* Category cards */
+  .col-sm-6 .card {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Dashboard tables */
+  .table-responsive {
+    font-size: 0.85rem;
+  }
+
+  /* Form inputs */
+  .form-control, .form-select {
+    font-size: 0.95rem;
+  }
+
+  /* Trivia section */
+  .trivia-card .row {
+    flex-direction: column;
+  }
+
+  /* Container padding */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* EcoBot chat */
+  .aichat-container {
+    height: 300px;
+  }
+
+  /* Footer links */
+  footer .d-flex.gap-3 {
+    flex-direction: column;
+    gap: 0.5rem !important;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-gradient h1 {
+    font-size: 1.8rem !important;
+  }
+
+  .display-6 {
+    font-size: 1.5rem !important;
+  }
+
+  .card-body {
+    padding: 1rem !important;
+  }
+
+  .btn-lg {
+    font-size: 1rem !important;
+    padding: 0.6rem 1.2rem !important;
+  }
+
+  .fs-5 {
+    font-size: 0.95rem !important;
   }
 }
