@@ -168,6 +168,17 @@ io.on("connection", (socket) => {
 // Start server
 const PORT = process.env.PORT || 5001;
 
+// Global Error Handler
+app.use((err, req, res, next) => {
+  console.error("Global Error Caught:", err);
+  res.status(500).json({
+    message: "Server encountered an error",
+    errorName: err.name,
+    errorMessage: err.message,
+    errorStack: err.stack
+  });
+});
+
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
