@@ -82,6 +82,16 @@ router.get("/seller/:userId", async (req, res) => {
   }
 });
 
+// ================= GET PRODUCTS BY CATEGORY =================
+router.get("/category/:categoryName", async (req, res) => {
+  try {
+    const products = await Product.find({ category: req.params.categoryName.toLowerCase() }).sort({ createdAt: -1 });
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch category products" });
+  }
+});
+
 
 // ================= GET SINGLE PRODUCT =================
 router.get("/:id", async (req, res) => {
