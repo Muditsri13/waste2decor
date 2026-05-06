@@ -12,6 +12,22 @@ const orderSchema = new mongoose.Schema({
     ref: "Product"
   },
 
+  sellerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true
+  },
+
+  address: {
+    type: String,
+    required: true
+  },
+
+  paymentMethod: {
+    type: String,
+    default: "Mock Card"
+  },
+
   status: {
     type: String,
     default: "Pending"

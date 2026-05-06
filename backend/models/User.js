@@ -19,9 +19,14 @@ const userSchema = new mongoose.Schema({
 
   role: {
     type: String,
-    enum: ["buyer", "seller", "admin"],
-    default: "buyer"
+    enum: ["user", "admin", "buyer", "seller"],
+    default: "user"
   },
+
+  wishlist: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product"
+  }],
 
   createdAt: {
     type: Date,
