@@ -14,7 +14,8 @@ import axios from 'axios';
 // Automatically route all "localhost" API calls to 
 // the production server if deployed.
 // ==============================================
-const API_URL = "https://waste2decor-backend.onrender.com";
+const API_URL = process.env.REACT_APP_API_URL || "https://waste2decor-backend-kmqa.onrender.com";
+
 
 
 axios.interceptors.request.use((config) => {

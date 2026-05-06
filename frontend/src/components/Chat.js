@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 
-const API_URL = "https://waste2decor-backend.onrender.com";
+const API_URL = process.env.REACT_APP_API_URL || "https://waste2decor-backend-kmqa.onrender.com";
 const socket = io(API_URL);
 
 function Chat() {
